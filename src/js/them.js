@@ -37,6 +37,7 @@ export function onSearch(e) {
 function clearsMarkup() {
    refs.btnLoadMore.classList.add('js_hidden')
    refs.gallery.innerHTML = '';
+     removeBgBody()
 }
   
 
@@ -68,6 +69,7 @@ function renderCollection(picture) {
    setTimeout(() => {
       if (collectionLength === 0 && totalPicture === 0) {
          clearsMarkup()
+         // removeBgBody()
          noSearchQuery(Notiflix)
          return
       }
@@ -77,6 +79,7 @@ function renderCollection(picture) {
       if (collectionLength > 0 && pageNamber === 1)  {
          const markup = collectionCardTpl(picture);
          refs.gallery.innerHTML = markup;
+         addBgBody()
          lightboxGallery.refresh();
          buttonVisible();
       }
@@ -121,20 +124,13 @@ function buttonVisible () {
 }
 
 
+//////////////// Прочее 
 
-//////////////// Слайдер
+// Изменение фона боди
+function addBgBody() {
+   return refs.body.classList.add('js_style')
+ }
 
-// lightboxGallery.refresh();
-
-// refs.gallery.addEventListener('click', onLoad);
-
-// function onLoad() {
-//    const lightbox = new SimpleLightbox('.gallery a');
-//    refs.gallery.addEventListener('click', onLoad);
-//    // linkGallery = document.querySelector('.link__gallery')
-//    // linkGallery.addEventListener('click', aaa);
-//    // console.log(linkGallery);
-//    // console.log(aaa);
-//    console.log(lightbox);
-// }
-
+ function removeBgBody() {
+   return refs.body.classList.remove('js_style')
+ }
