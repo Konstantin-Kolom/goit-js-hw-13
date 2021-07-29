@@ -2,10 +2,13 @@ import { fetchCollection } from './fetchCollection.js'
 import { refs } from './refs.js'
 import collectionCardTpl from '../templates/collection.hbs'
 import Notiflix from "notiflix";
+import SimpleLightbox from "simplelightbox";
 
 export let formSearch = ''
 export let pageNamber = 1
 export let quantityPerPage = 40
+
+const lightboxGallery = new SimpleLightbox('.gallery a');
 
 let totalPerPage = 0;
 const DEBOUNCE_DELAY = 300;
@@ -26,6 +29,7 @@ export function onSearch(e) {
       // return
    } else {
       dataСall()
+      // lightboxGallery.refresh();
    }
 };
 
@@ -54,7 +58,7 @@ function dataСall() {
 };
 
 
-//////////////// Разметка и рендеp колелкции  
+//////////////// Разметка и рендеp коллекции  
 function renderCollection(picture) {
    const collectionObject = picture.hits;
    const collectionLength = Object.keys(collectionObject).length;
@@ -68,24 +72,26 @@ function renderCollection(picture) {
          return
       }
       if (collectionLength !== 0 && pageNamber === 1) {
-         // loadNatiflix(Notiflix)
-         Notiflix.Notify.success(`Hooray! We found ${totalPicture} images.`)
+         Notiflix.Notify.success(`Hooray! We found ${totalPicture} images.`);
       }
       if (collectionLength > 0 && pageNamber === 1)  {
          const markup = collectionCardTpl(picture);
          refs.gallery.innerHTML = markup;
+         lightboxGallery.refresh();
          buttonVisible();
       }
       if (collectionLength > 0 && pageNamber > 1)  {
          const markup = collectionCardTpl(picture);
-         refs.gallery.insertAdjacentHTML('beforeend', markup)
+         refs.gallery.insertAdjacentHTML('beforeend', markup);
+         lightboxGallery.refresh();
          buttonVisible();
       }
       if (totalPerPage === totalPicture) {
          refs.btnLoadMore.classList.add('js_hidden');
          endSearchQuery(Notiflix)
       }
-       
+      linkaaa()
+             
    }, DEBOUNCE_DELAY);
 };
 
@@ -101,15 +107,9 @@ function noSearchQuery() {
 //    Notiflix.Notify.success(`Hooray! We found ${totalPicture} images.`);
 // }
 
-// function endSearchQuery(Notiflix)
 // Конец галереи
 function endSearchQuery() {
    Notiflix.Notify.info("We're sorry, but (you've) reached the end of search results.");
-}
-
-// загрузка 
-function loadNatiflix () {
-   Notiflix.Loading.circle('Please wait...');
 }
 
 
@@ -121,4 +121,20 @@ function buttonVisible () {
 }
 
 
+
+//////////////// Слайдер
+
+// lightboxGallery.refresh();
+
+// refs.gallery.addEventListener('click', onLoad);
+
+// function onLoad() {
+//    const lightbox = new SimpleLightbox('.gallery a');
+//    refs.gallery.addEventListener('click', onLoad);
+//    // linkGallery = document.querySelector('.link__gallery')
+//    // linkGallery.addEventListener('click', aaa);
+//    // console.log(linkGallery);
+//    // console.log(aaa);
+//    console.log(lightbox);
+// }
 

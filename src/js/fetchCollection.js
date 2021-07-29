@@ -1,7 +1,7 @@
 import { API_KEY } from './key.js'
-import { formSearch } from './them.js'
-import { pageNamber } from './them.js'
-import { quantityPerPage } from './them.js'
+import { formSearch, pageNamber, quantityPerPage } from './them.js'
+// import { pageNamber } from './them.js'
+// import { quantityPerPage } from './them.js'
 
 const url = 'https://pixabay.com/api/'
 
