@@ -53,6 +53,16 @@ button {
   border-radius: 50px;
 }
 
+button.load-more {
+  margin-bottom: 30px;
+  margin-top: 25px;
+  background-color: rgb(175, 228, 228);
+}
+
+button.load-more:hover {
+  font-weight: bold;
+  color: #0c5b9c;
+}
 /////////////////////////// кнопка открыть еще
 .load-more {
   display: block;
